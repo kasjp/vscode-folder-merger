@@ -31,7 +31,6 @@ export class DepNodeProvider implements vscode.TreeDataProvider<Folder> {
       );
     } else {
       return Promise.resolve([]);
-      // const packageJsonPath = path.join(this.workspaceRoot, 'package.json');
       // if (this.pathExists(packageJsonPath)) {
       // 	return Promise.resolve(this.getDepsInPackageJson(packageJsonPath));
       // } else {
