@@ -1,9 +1,9 @@
 {
-	"name": "custom-view-samples",
-	"displayName": "Custom view Samples",
-	"description": "Samples for VSCode's view API",
+	"name": "vscode-folder-merger",
+	"displayName": "Folder Merger",
+	"description": "Merges folders virtually for better management",
 	"version": "0.0.1",
-	"publisher": "vscode-samples",
+	"publisher": "kasjp",
 	"enableProposedApi": true,
 	"engines": {
 		"vscode": "^1.42.0"
