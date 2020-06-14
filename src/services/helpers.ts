@@ -5,7 +5,12 @@ export default class Helpers {
     * @param target to merge into, not overriding anything
     * @param source to copy from
     */
-    static mergeObjects(target: { [x: string]: any; hasOwnProperty: (key: string) => boolean; }, source: object){
+    static mergeObjects(
+        target: { [x: string]: any; hasOwnProperty: (key: string) => boolean; },
+        source: object,
+        overrideUndefined: boolean = false,
+        overrideKeys: boolean = false,) {
+        var override = overrideKeys || overrideUndefined;
         // Do nothing if they're the same object
         if (target === source) return;
         // Loop through source's own enumerable properties
@@ -17,6 +22,11 @@ export default class Helpers {
                 // Yes, if it doesn't exist yet on target, create it
                 if (!target.hasOwnProperty(key))
                     target[key] = val;
+                else
+                    if (overrideUndefined && target[key] == null && val)
+                        target[key] = val;
+                    else if (overrideKeys)
+                        target[key] = val;
 
                 // Recurse into that object IF IT DOES NOT CONTAIN CIRCULAR REFERENCES(references of self)
                 if (!isCyclic(target[key]) && !isCyclic(source[key]))
@@ -25,6 +35,11 @@ export default class Helpers {
                 // Not a non-null object ref, copy if target doesn't have it
             } else if (!target.hasOwnProperty(key))
                 target[key] = val;
+            else if (target.hasOwnProperty(key) && override)
+                if (overrideUndefined && target[key] == null && val)
+                    target[key] = val;
+                else if (overrideKeys)
+                    target[key] = val;
 
         });
 

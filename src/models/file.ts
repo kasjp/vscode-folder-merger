@@ -3,22 +3,17 @@ import { ffBase } from './ffBase';
 
 export class File extends ffBase {
     constructor(
-        public readonly label: string,
-        public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+        public readonly label?: string,
+        public readonly collapsibleState?: vscode.TreeItemCollapsibleState,
         public readonly _tooltip?: string,
         public readonly command?: vscode.Command
     ) {
-        super(label, collapsibleState);
+        super(label ?? "", collapsibleState);
     }
 
     get tooltip(): string {
         return `${this._tooltip}`;
     }
-
-    props = {
-        contextValue: 'file',
-        canBeMerged: false,
-        mergedWith: "",
-    }
+    contextValue = "file";
 
 }

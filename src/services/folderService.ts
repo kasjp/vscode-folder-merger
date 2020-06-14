@@ -27,12 +27,12 @@ export class FolderService {
      * @param files to map into a Folder/File object
      */
     filesToObject(files: Array<string>): object {
-        var fileMap = {};
+        var fileMap = new Folder();
         files.forEach(file => {
             //converts file:string to Folder/File object
             var fileObj = this.filePathToObject(file);
             //Merges into main fileMap
-            Helpers.mergeObjects(fileMap, fileObj);
+            Helpers.mergeObjects(fileMap, fileObj, true);
         })
         return fileMap;
     }
@@ -73,7 +73,7 @@ export class FolderService {
         if (folder.hasMultiple) {
             return folder;
         }
-        var obj = {} as Folder;
+        var obj = new Folder();
         Object.keys(folder).map(folderKey => {
             obj = folder[folderKey];
             if (folder[folderKey]?.isFolder) {

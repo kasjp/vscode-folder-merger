@@ -67,12 +67,12 @@
 			],
 			"view/item/context": [{
 					"command": "nodeDependencies.editEntry",
-					"when": "view == nodeDependencies && viewItem == dependency",
+					"when": "view == nodeDependencies && viewItem == folder",
 					"group": "inline"
 				},
 				{
 					"command": "nodeDependencies.deleteEntry",
-					"when": "view == nodeDependencies && viewItem == dependency"
+					"when": "view == nodeDependencies && (viewItem == folder || viewItem == file)"
 				}
 			]
 		}

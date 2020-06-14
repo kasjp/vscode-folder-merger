@@ -4,12 +4,13 @@ import { ffBase } from './ffBase';
 
 export class Folder extends ffBase {
     constructor(
-        public readonly label: string,
-        public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+        public readonly label?: string,
+        public readonly collapsibleState?: vscode.TreeItemCollapsibleState,
         public readonly _tooltip?: string,
         public readonly command?: vscode.Command
     ) {
-        super(label, collapsibleState);
+        super(label ?? "", collapsibleState);
+
     }
 
     get tooltip(): string {
@@ -23,9 +24,7 @@ export class Folder extends ffBase {
         var folderService = new FolderService();
         return Object.keys(this).filter(key => folderService.isFileOrFolder(this[key])).length > 1;
     }
-    props = {
-        contextValue: 'folder',
-        canBeMerged: true,
-        mergedWith: "",
-    }
+    contextValue = "folder";
+    canBeMerged: true
+    mergedWith: ""
 }
