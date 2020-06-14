@@ -6,8 +6,7 @@ const { resolve } = require('path');
 const { readdir } = require('fs').promises;
 
 export class FolderService {
-    constructor(public folderPath: string) { }
-
+    constructor(private folderPath?: string, private folder?: Folder) { }
     /**
      * 
      * @param path path to read, including child directories/files
@@ -58,5 +57,30 @@ export class FolderService {
         return ret[Object.keys(ret)[0]] as File;
     }
 
+    /**
+     * 
+     * @param obj to check if it's a file or folder
+     */
+    isFileOrFolder(obj: any): boolean {
+        return obj?.constructor?.name === "Folder" || obj?.constructor?.name === "File";
+    }
 
+    /**
+     * 
+     * @param obj to recurse into until first occurency of more than one file or folder is met
+     */
+    reduceToFirstFamily(folder: Folder): Folder {
+        if (folder.hasMultiple) {
+            return folder;
+        }
+        var obj = {} as Folder;
+        Object.keys(folder).map(folderKey => {
+            obj = folder[folderKey];
+            if (folder[folderKey]?.isFolder) {
+                obj = this.reduceToFirstFamily(folder[folderKey]);
+            }
+        });
+        return obj;
+
+    }
 }

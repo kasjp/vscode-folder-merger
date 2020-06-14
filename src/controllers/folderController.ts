@@ -1,23 +1,22 @@
-import { FolderService } from "../bundles/folderBundle"
+import { FolderService, Folder } from "../bundles/folderBundle"
 import Helpers from "../services/helpers";
 export class FolderController {
     folders = [];
     constructor(private workspaceRoot: string) {
     }
-    async addFolder(folder?: string, callback?) {
-        let folderService = new FolderService(folder ?? this.workspaceRoot);
+    async addFolder(_folder?: string, callback?: void) {
+        let folderService = new FolderService(_folder ?? this.workspaceRoot);
         await folderService.getFilesAsync().then(files => {
             this.folders.push(folderService.filesToObject(files));
         }).catch(e => console.error(e));
+        /*TRY TO MERGE FOLDERS TOGETHER IF MORE THAN ONE */
         if (this.folders.length > 1) {
-            var goodFolder = {};
-            this.folders.forEach(folder => {
-                Helpers.mergeObjects(goodFolder, folder);
-            });
+            var mergedFolder = {} as Folder;
+            this.folders.forEach(folder => Helpers.mergeObjects(mergedFolder, folder));
             this.folders = [];
-            this.folders.push(goodFolder);
+            var mf2 = folderService.reduceToFirstFamily(mergedFolder);
+            this.folders.push(mf2);
         }
-        if (callback)
-            callback();
+        callback;
     }
 }

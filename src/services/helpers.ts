@@ -5,7 +5,7 @@ export default class Helpers {
     * @param target to merge into, not overriding anything
     * @param source to copy from
     */
-    static mergeObjects(target: { [x: string]: any; hasOwnProperty: (key: string) => boolean; }, source: object) {
+    static mergeObjects(target: { [x: string]: any; hasOwnProperty: (key: string) => boolean; }, source: object){
         // Do nothing if they're the same object
         if (target === source) return;
         // Loop through source's own enumerable properties

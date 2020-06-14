@@ -18,10 +18,9 @@ export function activate(context: vscode.ExtensionContext) {
             canSelectFolders: true,
             openLabel: 'Open',
             filters: {
-                'Text files': ['txt'],
                 'All files': ['*']
             }
-        }).then(uri => { return uri.toString().replace("file://", ""); }),
+        }).then(uri => uri[0].path),
         nodeDependenciesProvider.refresh()
     )
     );

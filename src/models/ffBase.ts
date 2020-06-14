@@ -1,7 +1,6 @@
 import * as vscode from 'vscode'
-import { ffBase } from './ffBase';
 
-export class File extends ffBase {
+export class ffBase extends vscode.TreeItem {
     constructor(
         public readonly label: string,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState,
@@ -14,11 +13,16 @@ export class File extends ffBase {
     get tooltip(): string {
         return `${this._tooltip}`;
     }
-
-    props = {
-        contextValue: 'file',
-        canBeMerged: false,
-        mergedWith: "",
+    get isFolder(): boolean {
+        return this.props.contextValue === "folder";
     }
-
+    get isFile(): boolean {
+        return this.props.contextValue === "file";
+    }
+    props = {
+        contextValue: '',
+        canBeMerged: false,
+        mergedWith: ''
+    }
 }
+ 
