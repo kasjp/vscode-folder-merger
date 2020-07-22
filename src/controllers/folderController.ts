@@ -7,7 +7,7 @@ export class FolderController {
     async addFolder({ _folder, callback }: { _folder?: string; callback?: void; } = {}) {
         let folderService = new FolderService(_folder ?? this.workspaceRoot);
         await folderService.getFilesAsync().then(files => {
-            this.folders.push(folderService.filesToObject(files));
+            this.folders.push(folderService.filePathsToFolder(files));
         }).catch(e => console.error(e));
         /*TRY TO MERGE FOLDERS TOGETHER IF MORE THAN ONE */
         if (this.folders.length > 1) {

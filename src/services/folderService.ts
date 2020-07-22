@@ -26,15 +26,15 @@ export class FolderService {
      * 
      * @param files to map into a Folder/File object
      */
-    filesToObject(files: Array<string>): object {
-        var fileMap = new Folder();
+    filePathsToFolder(files: Array<string>): object {
+        var folder = new Folder();
         files.forEach(file => {
             //converts file:string to Folder/File object
             var fileObj = this.filePathToObject(file);
             //Merges into main fileMap
-            Helpers.mergeObjects(fileMap, fileObj, true);
+            Helpers.mergeObjects(folder, fileObj, true);
         })
-        return fileMap;
+        return folder;
     }
 
     /**
